@@ -1,5 +1,4 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,7 +8,10 @@ import { RouterModule } from '@angular/router';
 import { MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuard, MsalGuardConfiguration, MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MsalRedirectComponent, MsalService } from '@azure/msal-angular';
 import { BrowserCacheLocation, InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
 import { AngularMaterialModule } from './shared/modules/material.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
@@ -64,11 +66,13 @@ export function MSALInterceptorConfig(): MsalInterceptorConfiguration {
     ProfileComponent,
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    RouterModule,
+    BrowserAnimationsModule,
     AngularMaterialModule,
-    MsalModule
+    AppRoutingModule,
+    CommonModule,
+    HttpClientModule,
+    MsalModule,
+    RouterModule,
     //   MsalModule.forRoot(
     //   new PublicClientApplication({
     //     auth: {
@@ -118,6 +122,7 @@ export function MSALInterceptorConfig(): MsalInterceptorConfiguration {
     },
     MsalService,
     MsalGuard,
+    provideAnimationsAsync(),
     // MsalConfigService
   ],
   bootstrap: [AppComponent, MsalRedirectComponent],
