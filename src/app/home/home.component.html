@@ -1,8 +1,21 @@
-<div *ngIf="!loginDisplay">
-    <p>Please sign-in to see your profile information.</p>
-</div>
-
-<div *ngIf="loginDisplay">
-    <p>Login successful!</p>
-    <p>Request your profile information by clicking Profile above.</p>
-</div>
+<main class="main">
+    <div class="content">
+        <div class="left-side">
+            <img id="logo" src="../assets/logo.png">
+        </div>
+        <div class="divider" role="separator" aria-label="Divider"></div>
+        <div class="right-side">
+            <div class="pill-group">
+                <a class="pill" *ngIf="isLoggedIn()" routerLink="profile">
+                    <mat-icon>account_circle</mat-icon>&nbsp;Profile</a>
+                <a class="pill" *ngIf="isLoggedIn()" (click)="NavigateToAdminDashboard()">
+                    <mat-icon>shield_person</mat-icon>&nbsp;Admin</a>
+                <a class="pill" *ngIf="!isLoggedIn()" (click)="login()">
+                    <mat-icon>login</mat-icon>&nbsp;Login</a>
+                <a class="pill" *ngIf="isLoggedIn()" (click)="logout()">
+                    <mat-icon>logout</mat-icon>&nbsp;Logout</a>
+            </div>
+        </div>
+    </div>
+    <router-outlet *ngIf="!isIframe"></router-outlet>
+</main>
