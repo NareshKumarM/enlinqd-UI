@@ -1,0 +1,73 @@
+@import "../../styles.scss";
+
+.master-container {
+  @extend .column-flex-1-container;
+
+  .header-main {
+    @include flex-setting(row, center, space-between, wrap);
+
+    h1 {
+      padding: 0px !important;
+      margin: 0px !important;
+    }
+  }
+
+  .admin-dashboard {
+    @include flex-setting(column, center, center, wrap);
+    flex: 1;
+
+    .admin-panel {
+      @include flex-setting(row, center, center, wrap);
+      gap: 15px;
+      flex: 1;
+
+      mat-card {
+        width: 150px;
+        height: 150px;
+        @include flex-setting(column, center, space-evenly, nowrap);
+        text-align: center;
+
+        mat-icon {
+          width: 80px;
+          height: auto;
+          font-size: 3.5em !important;
+          color: #3f9f42 !important;
+        }
+      }
+    }
+  }
+}
+
+.app-container {
+  height: 100%;
+  margin: 0;
+  background: none !important;
+
+  .app-sidenav {
+    width: 230px;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+
+    mat-list-item {
+      mat-icon {
+        height: auto !important;
+        width: auto !important;
+        font-size: 2.1em !important;
+        color: #3f9f42 !important;
+        margin-right: 10px;
+      }
+
+      span {
+        font-size: 20px;
+      }
+    }
+
+    .app-sidenav-content {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

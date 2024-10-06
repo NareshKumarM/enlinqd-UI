@@ -7,7 +7,7 @@ import { LoaderService } from '../shared/services/loader.service';
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss'
 })
-export class AdminComponent  implements OnInit {
+export class AdminComponent implements OnInit {
   public firstName: string = 'System';
   public lastName: string = 'Admin';
 
@@ -25,7 +25,7 @@ export class AdminComponent  implements OnInit {
   }
 
   public async NavigateToUsersSummary(): Promise<void> {
-    await this.router.navigate(['dashboard/admin/users']);
+    await this.router.navigate(['admin/users']);
   }
 
   public async NavigateToPayoutsSummary(): Promise<void> {
