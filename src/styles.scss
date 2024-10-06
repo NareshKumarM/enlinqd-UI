@@ -23,6 +23,18 @@ body {
         gap: 15px !important;
 }
 
+.row-flex-center-container {
+        @include flex-setting(row, center, center, nowrap);
+}
+
+.row-flex-start-center-container {
+        @include flex-setting(row, center, start, nowrap);
+}
+
+.row-flex-space-between-center-container {
+        @include flex-setting(row, start, space-between, nowrap);
+}
+
 .master-container {
         // @include main-background();
         height: 100vh;
@@ -46,60 +58,4 @@ table.mat-table {
                         }
                 }
         }
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-        font-weight: 500;
-}
-
-.user-panel {
-        @extend .row-flex-1-container;
-
-        mat-card {
-                display: flex;
-                flex-direction: column;
-                flex: 1;
-                padding: 16px 0px;
-                background: none !important;
-                box-shadow: none !important;
-
-                h3 {
-                        color: #3f9f42 !important;
-                }
-        }
-}
-
-::ng-deep {
-
-        .mat-cell,
-        .mat-header-cell {
-                padding-right: 8px !important;
-        }
-}
-
-.user-actions {
-        display: flex;
-        gap: 20px;
-
-        mat-icon {
-                line-height: normal;
-                font-size: 2.5em !important;
-                height: 40px;
-                width: 40px;
-        }
-}
-
-html,
-body {
-        height: 100%;
-}
-
-body {
-        margin: 0;
-        font-family: Roboto, "Helvetica Neue", sans-serif;
 }

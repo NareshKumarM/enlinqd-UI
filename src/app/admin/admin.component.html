@@ -2,13 +2,13 @@
     <app-loader></app-loader>
 
     <div class="header-main">
-        <div class="row-flex-1-container">
+        <div class="row-flex-center-container">
             <button mat-icon-button (click)="sidenav.toggle()" matTooltip="Menu">
                 <mat-icon>menu</mat-icon>
             </button>
-            <h3>
+            <h1>
                 Welcome <strong>{{ firstName }}</strong>&nbsp;<strong>{{ lastName }}</strong>
-            </h3>
+            </h1>
         </div>
         <div class="user-actions">
             <button mat-icon-button aria-label="Home" (click)="NavigateToHome()">
@@ -26,17 +26,25 @@
     <mat-sidenav-container class="app-container" autosize>
         <mat-sidenav #sidenav mode="side" [class.mat-elevation-z4]="true" class="app-sidenav" opened="true">
             <mat-nav-list>
-                <mat-list-item (click)="NavigateToUsersSummary()">
-                    <mat-icon>supervisor_account</mat-icon><span>Users</span>
+                <mat-list-item class="menu-item" (click)="NavigateToUsersSummary()">
+                    <div class="row-flex-start-center-container">
+                        <mat-icon>supervisor_account</mat-icon><span>Users</span>
+                    </div>
                 </mat-list-item>
-                <mat-list-item (click)="NavigateToSurveys()">
-                    <mat-icon>description</mat-icon><span>Surveys</span>
+                <mat-list-item class="menu-item" (click)="NavigateToSurveys()">
+                    <div class="row-flex-start-center-container">
+                        <mat-icon>description</mat-icon><span>Surveys</span>
+                    </div>
                 </mat-list-item>
-                <mat-list-item (click)="NavigateToPollsSummary()">
-                    <mat-icon>poll</mat-icon><span>Polling</span>
+                <mat-list-item class="menu-item" (click)="NavigateToPollsSummary()">
+                    <div class="row-flex-start-center-container">
+                        <mat-icon>poll</mat-icon><span>Polling</span>
+                    </div>
                 </mat-list-item>
-                <mat-list-item (click)="NavigateToPayoutsSummary()">
-                    <mat-icon>currency_exchange</mat-icon><span>Payouts</span>
+                <mat-list-item class="menu-item" (click)="NavigateToPayoutsSummary()">
+                    <div class="row-flex-start-center-container">
+                        <mat-icon>currency_exchange</mat-icon><span>Payouts</span>
+                    </div>
                 </mat-list-item>
             </mat-nav-list>
         </mat-sidenav>
