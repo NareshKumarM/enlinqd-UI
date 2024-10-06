@@ -1,1 +1,105 @@
-/* You can add global styles to this file, and also import other style files */
+@import "mixins.scss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+body {
+        font-family: 'Roboto', sans-serif;
+        background: rgb(255, 245, 203);
+        background: -moz-linear-gradient(135deg, rgba(255, 245, 203, 1) 0%, rgba(182, 227, 212, 1) 50%, rgba(51, 167, 181, 1) 100%);
+        background: -webkit-linear-gradient(135deg, rgba(255, 245, 203, 1) 0%, rgba(182, 227, 212, 1) 50%, rgba(51, 167, 181, 1) 100%);
+        background: linear-gradient(135deg, rgba(255, 245, 203, 1) 0%, rgba(182, 227, 212, 1) 50%, rgba(51, 167, 181, 1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fff5cb", endColorstr="#33a7b5", GradientType=1);
+}
+
+.column-flex-1-container {
+        @include flex-setting(column, stretch, stretch, nowrap);
+        flex: 1 !important;
+        gap: 15px !important;
+}
+
+.row-flex-1-container {
+        @include flex-setting(row, stretch, stretch, nowrap);
+        flex: 1 !important;
+        gap: 15px !important;
+}
+
+.master-container {
+        // @include main-background();
+        height: 100vh;
+        padding: 10px;
+        // @extend .column-flex-1-container;
+}
+
+table.mat-table {
+        ::ng-deep {
+                thead {
+                        tr {
+                                th.mat-header-cell {
+                                        @include roboto-font(16px, bold);
+                                }
+                        }
+                }
+
+                tr {
+                        td {
+                                @include roboto-font(14px, normal);
+                        }
+                }
+        }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+        font-weight: 500;
+}
+
+.user-panel {
+        @extend .row-flex-1-container;
+
+        mat-card {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                padding: 16px 0px;
+                background: none !important;
+                box-shadow: none !important;
+
+                h3 {
+                        color: #3f9f42 !important;
+                }
+        }
+}
+
+::ng-deep {
+
+        .mat-cell,
+        .mat-header-cell {
+                padding-right: 8px !important;
+        }
+}
+
+.user-actions {
+        display: flex;
+        gap: 20px;
+
+        mat-icon {
+                line-height: normal;
+                font-size: 2.5em !important;
+                height: 40px;
+                width: 40px;
+        }
+}
+
+html,
+body {
+        height: 100%;
+}
+
+body {
+        margin: 0;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+}
