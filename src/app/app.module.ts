@@ -18,8 +18,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     auth: {
       clientId: "5b1f63e9-b2e9-41a8-a437-abc9f77ed157",
       authority: "https://login.microsoftonline.com/e7171d83-ff27-4c9a-927b-d95ede538e95",
-      redirectUri: "http://localhost:4200",
-      postLogoutRedirectUri: "http://localhost:4200",
+      redirectUri: "https://blue-mud-0b9225500.5.azurestaticapps.net",
+      postLogoutRedirectUri: "https://blue-mud-0b9225500.5.azurestaticapps.net",
       navigateToLoginRequestUrl: true
     },
     cache: {
