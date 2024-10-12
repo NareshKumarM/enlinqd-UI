@@ -1,0 +1,46 @@
+<div class="column-flex-1-container">
+    <!-- <ol>
+      <li>
+        Click 'Login' to get access token
+        <br />
+        <button [disabled]="isloggedIn" (click)="login()">Login</button>
+        <span *ngIf="isloggedIn">You're logged in :)</span>
+      </li>
+      <li>
+        Once logged in, the 'Send It' button wil be enabled and you can click it
+        send test payload
+        <br />
+        <button [disabled]="!isloggedIn" (click)="sendPayload()">Send It</button>
+      </li>
+    </ol> -->
+  
+    <!-- <b>Send Payment Details</b>
+    <pre>{{ payload | json }}</pre>
+    <pre>{{ response | json }}</pre> -->
+  
+    <div class="row-flex-1-container">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="isloggedIn"
+        (click)="login()"
+      >
+        Login
+      </button>
+      <span *ngIf="isloggedIn">You're logged in :)</span>
+    </div>
+    <div class="row-flex-1-container">
+      <b>Payouts Summary by Batch Id</b>
+      <strong>{{ batchId }}</strong>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!isloggedIn"
+        (click)="getSummary()"
+      >
+        Get Details
+      </button>
+    </div>
+    <pre>{{ summaryResponse | json }}</pre>
+  </div>
+  
