@@ -21,7 +21,7 @@ export class AdminComponent implements OnInit {
   }
 
   public async NavigateToHome(): Promise<void> {
-    await this.router.navigate(['home']);
+    await this.router.navigateByUrl('http://localhost:4200/');
   }
 
   public async NavigateToUsersSummary(): Promise<void> {
@@ -29,7 +29,7 @@ export class AdminComponent implements OnInit {
   }
 
   public async NavigateToPayoutsSummary(): Promise<void> {
-    await this.router.navigate(['dashboard/admin/payouts/summary']);
+    await this.router.navigate(['admin/payouts']);
   }
 
   public async NavigateToPollsSummary(): Promise<void> {
