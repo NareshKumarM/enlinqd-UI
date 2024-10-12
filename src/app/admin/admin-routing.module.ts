@@ -13,7 +13,8 @@ const routes: Routes = [
       data: { title: 'Users' },
       component: UsersComponent
     }]
-  }
+  },
+  { path: 'payouts', loadChildren: () => import('./payouts/payouts.module').then(m => m.PayoutsModule) }
 ];
 
 @NgModule({
