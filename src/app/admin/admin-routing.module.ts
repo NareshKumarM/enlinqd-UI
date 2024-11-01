@@ -12,9 +12,12 @@ const routes: Routes = [
       path: 'users',
       data: { title: 'Users' },
       component: UsersComponent
-    }]
-  },
-  { path: 'payouts', loadChildren: () => import('./payouts/payouts.module').then(m => m.PayoutsModule) }
+    },
+    { path: 'payouts', loadChildren: () => import('./payouts/payouts.module').then(m => m.PayoutsModule) },
+    { path: 'surveys', loadChildren: () => import('./surveys/surveys.module').then(m => m.SurveysModule) },
+    { path: 'rewards', loadChildren: () => import('./tremendous/tremendous.module').then(m => m.TremendousModule) }
+    ]
+  }
 ];
 
 @NgModule({
