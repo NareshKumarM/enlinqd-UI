@@ -4,17 +4,17 @@
 
 body {
         font-family: 'Roboto', sans-serif;
-        background: rgb(255, 245, 203);
-        background: -moz-linear-gradient(135deg, rgba(255, 245, 203, 1) 0%, rgba(182, 227, 212, 1) 50%, rgba(51, 167, 181, 1) 100%);
-        background: -webkit-linear-gradient(135deg, rgba(255, 245, 203, 1) 0%, rgba(182, 227, 212, 1) 50%, rgba(51, 167, 181, 1) 100%);
-        background: linear-gradient(135deg, rgba(255, 245, 203, 1) 0%, rgba(182, 227, 212, 1) 50%, rgba(51, 167, 181, 1) 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fff5cb", endColorstr="#33a7b5", GradientType=1);
+        @include main-background();
+        // background: rgb(255, 245, 203);
+        // background: -moz-linear-gradient(135deg, rgba(255, 245, 203, 1) 0%, rgba(182, 227, 212, 1) 50%, rgba(51, 167, 181, 1) 100%);
+        // background: -webkit-linear-gradient(135deg, rgba(255, 245, 203, 1) 0%, rgba(182, 227, 212, 1) 50%, rgba(51, 167, 181, 1) 100%);
+        // background: linear-gradient(135deg, rgba(255, 245, 203, 1) 0%, rgba(182, 227, 212, 1) 50%, rgba(51, 167, 181, 1) 100%);
+        // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fff5cb", endColorstr="#33a7b5", GradientType=1);
 }
 
 .column-flex-1-container {
         @include flex-setting(column, stretch, stretch, nowrap);
         flex: 1 !important;
-        gap: 15px !important;
 }
 
 .row-flex-1-container {
@@ -36,10 +36,8 @@ body {
 }
 
 .master-container {
-        // @include main-background();
+        @include main-background();
         height: 100vh;
-        padding: 10px;
-        // @extend .column-flex-1-container;
 }
 
 table.mat-table {
