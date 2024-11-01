@@ -33,11 +33,14 @@ export class AdminComponent implements OnInit {
   }
 
   public async NavigateToPollsSummary(): Promise<void> {
-    // TBC
-    await this.router.navigate(['dashboard/admin/payouts/summary']);
+    await this.router.navigate(['admin/polls']);
   }
 
   public async NavigateToSurveys(): Promise<void> {
-    await this.router.navigate(['dashboard/admin/surveys/summary']);
+    await this.router.navigate(['admin/surveys/summary']);
+  }
+
+  public async NavigateToRewardsSummary(): Promise<void> {
+    await this.router.navigate(['admin/rewards']);
   }
 }

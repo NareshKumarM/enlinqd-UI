@@ -1,0 +1,9 @@
+@import "../../../../../styles.scss";
+
+.summary-content {
+    @extend .row-flex-1-container;
+
+    .survey-summary {
+        @extend .column-flex-1-container;
+    }
+}

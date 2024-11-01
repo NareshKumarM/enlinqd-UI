@@ -1,0 +1,52 @@
+<h1
+  mat-dialog-title
+  [class.error]="type === 'error'"
+  [class.warning]="type === 'warning'"
+  [class.info]="type === 'info'"
+>
+  <fa-icon
+    *ngIf="type === 'warning'"
+    [icon]="['fas', 'exclamation-triangle']"
+    size="3x"
+  ></fa-icon>
+  <fa-icon
+    *ngIf="type === 'error'"
+    [icon]="['fas', 'times-circle']"
+    size="3x"
+  ></fa-icon>
+  <fa-icon
+    *ngIf="type === 'info'"
+    [icon]="['fas', 'info-circle']"
+    size="3x"
+  ></fa-icon>
+</h1>
+
+<div mat-dialog-content class="error-list">
+  <p *ngFor="let line of filteredMessages">{{ line }}</p>
+  <button
+    mat-raised-button
+    (click)="showAllErrorMessages()"
+    *ngIf="message?.length > 5 && message?.length !== filteredMessages?.length"
+  >
+    And more..
+  </button>
+</div>
+
+<div
+  *ngIf="type === 'warning'"
+  mat-dialog-actions
+  fxLayout="row"
+  fxLayoutAlign="flex-end center"
+>
+  <button mat-raised-button color="warn" (click)="onConfirm()">Yes</button>
+  <button mat-raised-button (click)="onDismiss()">No</button>
+</div>
+
+<div
+  *ngIf="type === 'info' || type === 'error'"
+  mat-dialog-actions
+  fxLayout="row"
+  fxLayoutAlign="center center"
+>
+  <button mat-raised-button (click)="onDismiss()">Close</button>
+</div>
