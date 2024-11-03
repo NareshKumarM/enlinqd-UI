@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TableColumn } from '../../shared/models/table-column.model';
 import { User } from '../../shared/models/user.model';
 import { TremendousApiService } from './tremendous-api.sevice';
+import { Product, ProductImage, Products } from './model/product.model';
 
 @Component({
   selector: 'app-summary',
@@ -28,112 +29,12 @@ export class RewardsSummaryComponent implements OnInit {
       code: "US"
     },
   ];
-  public columns: TableColumn<User>[] = [];
-  public usersColumns: string[] = [];
-
-  public mockUserData: User = {
-    Id: '1',
-    FirstName: 'John',
-    LastName: 'Doe',
-    Email: 'john.doe@email.com',
-    Birthdate: new Date('1998/07/02'),
-    Gender: 'M',
-    pointsAccumulated: 0,
-    pointsRedeemed: 100,
-    createdAt: new Date('2022/07/31'),
-    IsSystemAdmin: false,
-    surevys: [
-      {
-        id: '1',
-        expiry: new Date('2023/07/31'),
-        lastAccessed: '',
-        name: 'New Survey June 2023',
-        createdAt: new Date('2023/05/15'),
-        points: 10,
-        status: 'New',
-      },
-      {
-        id: '1',
-        expiry: new Date('2023/07/31'),
-        lastAccessed: '',
-        name: 'New Survey June 2023',
-        createdAt: new Date('2023/05/15'),
-        points: 10,
-        status: 'New',
-      },
-      {
-        id: '1',
-        expiry: new Date('2023/07/31'),
-        lastAccessed: '',
-        name: 'New Survey June 2023',
-        createdAt: new Date('2023/05/15'),
-        points: 10,
-        status: 'New',
-      },
-      {
-        id: '1',
-        expiry: new Date('2023/07/31'),
-        lastAccessed: '',
-        name: 'New Survey June 2023',
-        createdAt: new Date('2023/05/15'),
-        points: 10,
-        status: 'New',
-      },
-      {
-        id: '1',
-        expiry: new Date('2023/07/31'),
-        lastAccessed: '',
-        name: 'New Survey June 2023',
-        createdAt: new Date('2023/05/15'),
-        points: 10,
-        status: 'New',
-      },
-      {
-        id: '1',
-        expiry: new Date('2023/07/31'),
-        lastAccessed: '',
-        name: 'New Survey June 2023',
-        createdAt: new Date('2023/05/15'),
-        points: 10,
-        status: 'New',
-      },
-      {
-        id: '1',
-        expiry: new Date('2023/07/31'),
-        lastAccessed: '',
-        name: 'New Survey June 2023',
-        createdAt: new Date('2023/05/15'),
-        points: 10,
-        status: 'New',
-      },
-    ],
-  };
-
-  private adminUser: User = {
-    Id: '1',
-    FirstName: 'System',
-    LastName: 'Admin',
-    Email: 'john.doe@email.com',
-    Birthdate: new Date('1998/07/02'),
-    Gender: 'M',
-    pointsAccumulated: 0,
-    pointsRedeemed: 100,
-    createdAt: new Date('2022/07/31'),
-    IsSystemAdmin: true,
-    surevys: [],
-  };
-
-  public users: User[] = [
-    this.adminUser,
-    this.mockUserData,
-    this.mockUserData,
-    this.mockUserData,
-  ];
-
-  public userSummaryDataSource = new MatTableDataSource(this.users);
+  public columns: TableColumn<Product>[] = [];
+  public productColumns: string[] = [];
+  public productSummaryDataSource = new MatTableDataSource();
   public pageSize = 5;
   public pageSizeOptions: number[] = [5, 10, 15, 25, 50, 100];
-  private allProducts: any[] = [];
+  private allProducts: Products;
   public filteredProducts: any[] = [];
 
   @ViewChild('usersPaginator', { static: false })
@@ -147,23 +48,25 @@ export class RewardsSummaryComponent implements OnInit {
   public ngOnInit(): void {
     this.columns.forEach((column) => {
       if (column.columnDef.length) {
-        this.usersColumns.push(column.columnDef);
+        this.productColumns.push(column.columnDef);
       }
     });
   }
 
   public ngAfterViewInit(): void {
-    this.userSummaryDataSource.paginator = this.userSurveysPaginator;
+    this.productSummaryDataSource.paginator = this.userSurveysPaginator;
   }
 
   public filterProducts(countryCode: string): void {
-    this.filteredProducts = this.allProducts.filter((product) => product.countryCode === countryCode);
+    // this.filteredProducts = this.allProducts.products.filter((product) => product.countries === countryCode);
   }
 
   private getProductData() {
-    this.tremendousApiService.getProducts().subscribe((response) => {
+    this.tremendousApiService.getProducts('AU', 'AUD').subscribe((response) => {
       this.allProducts = response;
-      this.filteredProducts = this.allProducts;
+      this.filteredProducts = response.products;
+      this.productSummaryDataSource.data = response.products;
+      console.log(this.allProducts);
     }, error => {
       console.error('Error fetching products', error);
     });
@@ -172,43 +75,29 @@ export class RewardsSummaryComponent implements OnInit {
   private generateColumns(): void {
     this.columns = [
       {
-        columnDef: 'firstName',
-        header: 'First Name',
+        columnDef: 'name',
+        header: 'name',
         image: false,
-        cell: (element: User) => `${element.FirstName}`,
+        cell: (element: Product) => `${element.name}`,
       },
       {
-        columnDef: 'lastName',
-        header: 'Last Name',
-        image: false,
-        cell: (element: User) => `${element.LastName}`,
-      },
-      {
-        columnDef: 'email',
-        header: 'E-Mail',
-        image: false,
-        cell: (element: User) => `${element.Email}`,
-      },
-      {
-        columnDef: 'IsSystemAdmin',
-        header: 'System Admin',
+        columnDef: 'logo',
+        header: '',
         image: true,
-        cell: (element: User) => `${element.IsSystemAdmin}`,
+        cell: (element: Product) => `${this.getImage(element.images, 'logo')}`,
       },
       {
-        columnDef: 'createdAt',
-        header: 'Created on',
-        image: false,
-        cell: (element: User) => `${element.createdAt?.toLocaleString()}`,
-      },
-      {
-        columnDef: 'updatedAt',
-        header: 'Updated At',
-        image: false,
-        cell: (element: User) => `${element.updatedAt?.toLocaleString()}`,
-      },
+        columnDef: 'card',
+        header: '',
+        image: true,
+        cell: (element: Product) => `${this.getImage(element.images, 'card')}`,
+      }
     ];
   }
 
   public openDialog(id: string): void { }
+
+  private getImage(productImages: ProductImage[], type: string): string {
+    return productImages?.find(i => i.type === type)?.src;
+  }
 }
