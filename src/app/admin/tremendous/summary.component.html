@@ -11,16 +11,15 @@
 <div class="summary-content">
   <div class="user-summary">
     <mat-card class="tile">
-      <table mat-table [dataSource]="userSummaryDataSource">
+      <table mat-table [dataSource]="productSummaryDataSource">
         <ng-container *ngFor="let column of columns" matColumnDef="{{ column.columnDef }}">
           <div *ngIf="column.image; then imagecolumn; else textcolumn"></div>
           <ng-template #imagecolumn class="image-column">
             <th mat-header-cell *matHeaderCellDef class="centre-cell">
               <div>{{ column.header }}</div>
             </th>
-            <td mat-cell *matCellDef="let row" (click)="openDialog(row.id)" class="centre-cell">
-              <mat-icon *ngIf="row.IsSystemAdmin" color="primary">check_circle</mat-icon>
-              <mat-icon *ngIf="!row.IsSystemAdmin" color="warn">cancel</mat-icon>
+            <td mat-cell *matCellDef="let row"  class="centre-cell">
+              <img class="logo" [src]="column.cell(row)"/>
             </td>
           </ng-template>
           <ng-template #textcolumn class="text-column">
@@ -33,8 +32,8 @@
           </ng-template>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="usersColumns"></tr>
-        <tr mat-row *matRowDef="let emprow; columns: usersColumns"></tr>
+        <tr mat-header-row *matHeaderRowDef="productColumns"></tr>
+        <tr mat-row *matRowDef="let emprow; columns: productColumns"></tr>
       </table>
       <mat-paginator #userSurveysPaginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
         [showFirstLastButtons]="true" fxHide.lt-md></mat-paginator>
