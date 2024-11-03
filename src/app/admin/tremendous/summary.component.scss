@@ -5,5 +5,9 @@
 
     .user-summary {
         @extend .column-flex-1-container;
+
+        .logo {
+            height: 100px;
+        }
     }
 }
