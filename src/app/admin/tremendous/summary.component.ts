@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { TableColumn } from '../../shared/models/table-column.model';
-import { User } from '../../shared/models/user.model';
 import { TremendousApiService } from './tremendous-api.sevice';
 import { Product, ProductImage, Products } from './model/product.model';
+import { RewardBatch } from './model/reward.model';
+import Utils from '../../shared/components/utils';
 
 @Component({
   selector: 'app-summary',
@@ -32,10 +33,26 @@ export class RewardsSummaryComponent implements OnInit {
   public columns: TableColumn<Product>[] = [];
   public productColumns: string[] = [];
   public productSummaryDataSource = new MatTableDataSource();
+  public rewardsHistoryDataSource = new MatTableDataSource();
   public pageSize = 5;
   public pageSizeOptions: number[] = [5, 10, 15, 25, 50, 100];
   private allProducts: Products;
   public filteredProducts: any[] = [];
+  public rewardsHistory: RewardBatch[] = [{
+    id: Utils.GenerateGUID(),
+    date: new Date('2024/01/01'),
+    name: 'Test Batch 01 Jan 2024',
+    rewards:[{
+      id: Utils.GenerateGUID(),
+      rewardeeName:'Raghavan K',
+      rewardDate: new Date('2024/01/01'),
+      amount: 50,
+      productId:'0EGZII4AGZDL',
+      productLogo:'https://testflight.tremendous.com/product_images/0EGZII4AGZDL/logo',
+      productName: 'Kogan',
+      status:'Success'
+    }]
+  }];
 
   @ViewChild('usersPaginator', { static: false })
   public userSurveysPaginator!: MatPaginator;
