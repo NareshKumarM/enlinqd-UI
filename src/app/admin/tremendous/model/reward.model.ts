@@ -1,6 +1,7 @@
 export interface Reward{
     id:string;
     rewardeeName: string;
+    rewardeeEmail: string;
     productId:string;
     productName:string;
     productLogo:string;

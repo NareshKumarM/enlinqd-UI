@@ -6,11 +6,30 @@ import { TremendousApiService } from './tremendous-api.sevice';
 import { Product, ProductImage, Products } from './model/product.model';
 import { RewardBatch } from './model/reward.model';
 import Utils from '../../shared/components/utils';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
-  styleUrl: './summary.component.scss'
+  styleUrl: './summary.component.scss',
+  animations: [
+    trigger("detailExpand", [
+      state("collapsed, void", style({ height: "0px", minHeight: "0" })),
+      state("expanded", style({ height: "*" })),
+      transition(
+        "expanded <=> collapsed, void => collapsed",
+        animate("200ms cubic-bezier(0.4, 0.0, 0.2, 1)")
+      ),
+    ]),
+    trigger("detailExpandSmall", [
+      state("collapsed, void", style({ display: "none" })),
+      state("expanded", style({ display: "block" })),
+      transition(
+        "expanded <=> collapsed, void => collapsed",
+        animate("200ms cubic-bezier(0.4, 0.0, 0.2, 1)")
+      ),
+    ]),
+  ],
 })
 export class RewardsSummaryComponent implements OnInit {
   public countries = [
@@ -30,6 +49,7 @@ export class RewardsSummaryComponent implements OnInit {
       code: "US"
     },
   ];
+
   public columns: TableColumn<Product>[] = [];
   public productColumns: string[] = [];
   public productSummaryDataSource = new MatTableDataSource();
@@ -42,17 +62,25 @@ export class RewardsSummaryComponent implements OnInit {
     id: Utils.GenerateGUID(),
     date: new Date('2024/01/01'),
     name: 'Test Batch 01 Jan 2024',
-    rewards:[{
+    rewards: [{
       id: Utils.GenerateGUID(),
-      rewardeeName:'Raghavan K',
+      rewardeeName: 'Raghavan K',
+      rewardeeEmail: 'rk@awesome.com',
       rewardDate: new Date('2024/01/01'),
       amount: 50,
-      productId:'0EGZII4AGZDL',
-      productLogo:'https://testflight.tremendous.com/product_images/0EGZII4AGZDL/logo',
+      productId: '0EGZII4AGZDL',
+      productLogo: 'https://testflight.tremendous.com/product_images/0EGZII4AGZDL/logo',
       productName: 'Kogan',
-      status:'Success'
+      status: 'Success'
     }]
   }];
+
+  public expandColumn = "expand";
+  public actionColumn = "actions";
+
+  private iconExpanded = "expand_more";
+  private iconCollapsed = "chevron_right";
+  private expandedRewardBatchId: string;
 
   @ViewChild('usersPaginator', { static: false })
   public userSurveysPaginator!: MatPaginator;
@@ -78,11 +106,26 @@ export class RewardsSummaryComponent implements OnInit {
     // this.filteredProducts = this.allProducts.products.filter((product) => product.countries === countryCode);
   }
 
+  public displayProjectIcon(element: RewardBatch): string {
+    return this.isExpanded(element) ? this.iconExpanded : this.iconCollapsed;
+  }
+
+  public toggleProjectRowDisplay(element: RewardBatch): string {
+    return this.isExpanded(element) ? "expanded" : "collapsed";
+  }
+
+  public isExpanded(element: RewardBatch): boolean {
+    return element.id === this.expandedRewardBatchId;
+  }
+
+  public openDialog(id: string): void { }
+
   private getProductData() {
     this.tremendousApiService.getProducts('AU', 'AUD').subscribe((response) => {
       this.allProducts = response;
       this.filteredProducts = response.products;
       this.productSummaryDataSource.data = response.products;
+      this.rewardsHistoryDataSource.data = this.rewardsHistory;
       console.log(this.allProducts);
     }, error => {
       console.error('Error fetching products', error);
@@ -112,7 +155,6 @@ export class RewardsSummaryComponent implements OnInit {
     ];
   }
 
-  public openDialog(id: string): void { }
 
   private getImage(productImages: ProductImage[], type: string): string {
     return productImages?.find(i => i.type === type)?.src;
