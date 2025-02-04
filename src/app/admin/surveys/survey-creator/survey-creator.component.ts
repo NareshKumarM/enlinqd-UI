@@ -10,7 +10,7 @@ import Utils from '../../../shared/components/utils';
 @Component({
   selector: 'app-survey-creator',
   templateUrl: './survey-creator.component.html',
-  styleUrls: ['./survey-creator.component.scss']
+  styleUrls: ['./survey-creator.component.scss'],  standalone: false
 })
 export class SurveyCreatorComponent implements OnInit {
 
