@@ -7,7 +7,7 @@ import { User } from '../../shared/models/user.model';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrl: './users.component.scss'
+  styleUrl: './users.component.scss',  standalone: false
 })
 export class UsersComponent implements OnInit {
   public columns: TableColumn<User>[] = [];

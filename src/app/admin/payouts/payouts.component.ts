@@ -8,7 +8,7 @@ import { AuthService } from '../../shared/services/auth.service';
 @Component({
   selector: 'app-payouts',
   templateUrl: './payouts.component.html',
-  styleUrl: './payouts.component.scss'
+  styleUrl: './payouts.component.scss',  standalone: false
 })
 export class PayoutsComponent implements OnInit {
   public payload: PayoutPayload;

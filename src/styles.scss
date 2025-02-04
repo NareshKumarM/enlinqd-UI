@@ -35,6 +35,15 @@ body {
         @include flex-setting(row, start, space-between, nowrap);
 }
 
+.row-flex-space-evenly-center-container {
+        @include flex-setting(row, start, space-evenly, nowrap);
+}
+
+.row-flex-space-around-center-container {
+        @include flex-setting(row, start, space-around, nowrap);
+}
+
+
 .master-container {
         @include main-background();
         height: 100vh;

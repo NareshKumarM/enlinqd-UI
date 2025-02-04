@@ -24,13 +24,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatNativeDateModule, MatOptionModule, MatRippleModule } from '@angular/material/core';
+import { MatCommonModule, MatNativeDateModule, MatOptionModule, MatRippleModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 
 
@@ -42,6 +42,7 @@ const materialModules = [
     MatCardModule,
     MatCheckboxModule,
     MatChipsModule,
+    MatCommonModule, 
     MatStepperModule,
     MatDatepickerModule,
     MatDialogModule,
@@ -70,6 +71,10 @@ const materialModules = [
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogTitle,
+    MatDialogContent
 ];
 
 @NgModule({

@@ -9,5 +9,23 @@
         .logo {
             height: 100px;
         }
+
+        tr.expand-detail-row {
+            height: 0;
+
+            .reward-info {
+                padding: 10px;
+                @extend .row-flex-start-center-container;
+
+                .reward-info-item {
+
+                    margin-left: 15px;
+
+                    label {
+                        color: darkgray;
+                    }
+                }
+            }
+        }
     }
 }
