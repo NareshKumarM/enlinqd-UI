@@ -5,7 +5,7 @@ import { LoaderService } from '../shared/services/loader.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.scss'
+  styleUrl: './admin.component.scss',  standalone: false
 })
 export class AdminComponent implements OnInit {
   public firstName: string = 'System';

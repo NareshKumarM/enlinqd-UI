@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>New Order</h2>
+<mat-dialog-content>
+  <form [formGroup]="orderFormGroup">
+    <div class="column-flex-1-container">
+      <mat-form-field>
+        <mat-label>Full Name</mat-label>
+        <input matInput required type="text" formControlName="recipientName">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput required type="email" formControlName="recipientEmail">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Amount</mat-label>
+        <input matInput required type="number" formControlName="denomination">
+        <span matSuffix>{{selectedCountryCurrency}}</span>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Products</mat-label>
+        <mat-select formControlName="products" multiple>
+          <mat-select-trigger>
+            {{selectedProducts.value?.[0] || ''}}
+            @if ((selectedProducts.value?.length || 0) > 1) {
+            <span class="additional-selection">
+              (+{{ (selectedProducts.value?.length || 0) - 1 }}
+              {{ selectedProducts.value?.length === 2 ? "other" : "others" }})
+            </span>
+            }
+          </mat-select-trigger>
+          <mat-option value="select-all" selectAll [allValues]="allproducts">Select all</mat-option>
+          @for (product of allproducts; track product) {
+          <mat-option [value]="product.name">{{ product.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="createOrder()" cdkFocusInitial>Create</button>
+  <button mat-raised-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
