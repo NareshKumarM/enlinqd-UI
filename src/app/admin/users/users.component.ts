@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { TableColumn } from '../../shared/models/table-column.model';
@@ -7,9 +7,9 @@ import { User } from '../../shared/models/user.model';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrl: './users.component.scss',  standalone: false
+  styleUrl: './users.component.scss', standalone: false
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, AfterViewInit {
   public columns: TableColumn<User>[] = [];
   public usersColumns: string[] = [];
 
@@ -112,7 +112,7 @@ export class UsersComponent implements OnInit {
     this.mockUserData,
   ];
 
-  public userSummaryDataSource = new MatTableDataSource(this.users);
+  public userSummaryDataSource = new MatTableDataSource();
   public pageSize = 5;
   public pageSizeOptions: number[] = [5, 10, 15, 25, 50, 100];
 
@@ -129,6 +129,7 @@ export class UsersComponent implements OnInit {
         this.usersColumns.push(column.columnDef);
       }
     });
+    this.userSummaryDataSource.data = this.users;
   }
 
   public ngAfterViewInit(): void {
@@ -176,5 +177,5 @@ export class UsersComponent implements OnInit {
     ];
   }
 
-  public openDialog(id: string): void {}
+  public openDialog(id: string): void { }
 }

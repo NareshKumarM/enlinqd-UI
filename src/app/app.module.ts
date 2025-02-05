@@ -12,8 +12,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SelectAllDirective } from './shared/directives/select-all.directive';
 
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({

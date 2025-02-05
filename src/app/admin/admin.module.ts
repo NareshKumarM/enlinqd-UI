@@ -6,17 +6,23 @@ import { AdminComponent } from './admin.component';
 import { AngularMaterialModule } from '../shared/modules/material.module';
 import { LoaderComponent } from '../shared/components/loader/loader.component';
 import { UsersComponent } from './users/users.component'
+import { HighchartsChartModule } from 'highcharts-angular';
+import { PowerComponent } from './power/power.component';
+import { DashboardComponent } from './power/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     LoaderComponent,
-    UsersComponent
+    UsersComponent,
+    PowerComponent,
+    DashboardComponent
   ],
   imports: [
     AdminRoutingModule,
     AngularMaterialModule,
-    CommonModule
+    CommonModule,
+    HighchartsChartModule
   ]
 })
 export class AdminModule { }
