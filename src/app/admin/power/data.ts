@@ -335,12 +335,13 @@ export const dashboardOptions = {
         ],
     },
     editMode: {
-        enabled: true,
-        contextMenu: {
-            enabled: true,
-            items: ['editMode'],
-        },
+        enabled: false,
+        // contextMenu: {
+        //     enabled: true,
+        //     items: ['editMode'],
+        // },
     },
+    
     gui: {
         layouts: [
             {
@@ -372,13 +373,13 @@ export const dashboardOptions = {
                             },
                         ],
                     },
-                    {
-                        cells: [
-                            {
-                                id: 'dashboard-col-2',
-                            },
-                        ],
-                    },
+                    // {
+                    //     cells: [
+                    //         {
+                    //             id: 'dashboard-col-2',
+                    //         },
+                    //     ],
+                    // },
                 ],
             },
         ],
@@ -388,17 +389,17 @@ export const dashboardOptions = {
             type: 'KPI',
             renderTo: 'kpi-vitamin-a',
             value: 900,
-            valueFormat: '{value}',
-            title: 'Vitamin A',
-            subtitle: 'daily recommended dose',
+            valueFormat: '{value} kWh',
+            title: 'Highest Consumption',
+            subtitle: '',
         },
         {
             type: 'KPI',
             renderTo: 'kpi-iron',
             value: 8,
-            title: 'Iron',
+            title: 'Meters',
             valueFormat: '{value}',
-            subtitle: 'daily recommended dose',
+            subtitle: '',
         },
         {
             sync: {
