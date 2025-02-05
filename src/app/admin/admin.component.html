@@ -31,7 +31,7 @@
                         <mat-icon>supervisor_account</mat-icon><span>Users</span>
                     </div>
                 </mat-list-item>
-                <mat-list-item class="menu-item" [routerLink]="['/admin/surveys']">
+                <!-- <mat-list-item class="menu-item" [routerLink]="['/admin/surveys']">
                     <div class="row-flex-start-center-container">
                         <mat-icon>description</mat-icon><span>Surveys</span>
                     </div>
@@ -49,6 +49,31 @@
                 <mat-list-item class="menu-item" [routerLink]="['/admin/rewards']">
                     <div class="row-flex-start-center-container">
                         <mat-icon>redeem</mat-icon><span>Rewards</span>
+                    </div>
+                </mat-list-item> -->
+                <mat-list-item class="menu-item" [routerLink]="['/admin/power/dashboard']">
+                    <div class="row-flex-start-center-container">
+                        <mat-icon>dashboard</mat-icon><span>Dashboard</span>
+                    </div>
+                </mat-list-item>
+                <mat-list-item class="menu-item" [routerLink]="['/admin/power/sitemap']">
+                    <div class="row-flex-start-center-container">
+                        <mat-icon>directions_boat</mat-icon><span>Sitemap</span>
+                    </div>
+                </mat-list-item>
+                <mat-list-item class="menu-item" [routerLink]="['/admin/power/smr']">
+                    <div class="row-flex-start-center-container">
+                        <mat-icon>electric_meter</mat-icon><span>Single Meter Read</span>
+                    </div>
+                </mat-list-item>
+                <mat-list-item class="menu-item" [routerLink]="['/admin/power/bmr']">
+                    <div class="row-flex-start-center-container">
+                        <mat-icon>network_check</mat-icon><span>Bulk Meter Read</span>
+                    </div>
+                </mat-list-item>
+                <mat-list-item class="menu-item" [routerLink]="['/admin/power/reporting']">
+                    <div class="row-flex-start-center-container">
+                        <mat-icon>description</mat-icon><span>Reporting</span>
                     </div>
                 </mat-list-item>
             </mat-nav-list>

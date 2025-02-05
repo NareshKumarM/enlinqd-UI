@@ -1,0 +1,118 @@
+@switch (area) {
+@case ("dashboard") {
+<h3>Dashboard</h3>
+
+<div class="row-flex-1-container">
+    <mat-card appearance="outlined">
+        <mat-card-content>
+            <strong>Alarms</strong>
+            <h1>256</h1>
+        </mat-card-content>
+    </mat-card>
+    <mat-card appearance="outlined">
+        <mat-card-content>
+            <strong>New Meters</strong>
+            <h1>10</h1>
+        </mat-card-content>
+    </mat-card>
+    <mat-card appearance="outlined">
+        <mat-card-content>
+            <strong>Current Meters</strong>
+            <h1>100</h1>
+        </mat-card-content>
+    </mat-card>
+    <mat-card appearance="outlined">
+        <mat-card-content>
+            <strong>Current Meters</strong>
+            <h1>100</h1>
+        </mat-card-content>
+    </mat-card>
+</div>
+<br />
+<highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
+    style="width: 100%; height: 600px; display: block;">
+</highcharts-chart>
+}
+@case ("sitemap") {
+<h3>Sitemap</h3>
+<div class="row-flex-center-container ">
+    <app-dashboard></app-dashboard>
+</div>
+}
+@case ("smr") {
+<h3>Single Meter Read</h3>
+<table mat-table [dataSource]="smrdataSource">
+    <ng-container *ngFor="let column of columns" matColumnDef="{{ column.columnDef }}">
+        <div *ngIf="column.image; then imagecolumn; else textcolumn"></div>
+        <ng-template #imagecolumn class="image-column">
+            <th mat-header-cell *matHeaderCellDef class="centre-cell"> </th>
+            <td mat-cell *matCellDef="let row" class="centre-cell"></td>
+        </ng-template>
+        <ng-template #textcolumn class="text-column">
+            <th mat-header-cell *matHeaderCellDef>
+                {{ column.header }}
+            </th>
+            <td mat-cell *matCellDef="let row">
+                {{ column.cell(row) }}
+            </td>
+        </ng-template>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="readingColumns"></tr>
+    <tr mat-row *matRowDef="let emprow; columns: readingColumns"></tr>
+</table>
+<mat-paginator #smrdataSourcePaginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+    [showFirstLastButtons]="true" fxHide.lt-md></mat-paginator>
+
+}
+@case ("bmr") {
+<h3>Bulk Meter Read</h3>
+<mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
+
+<table mat-table [dataSource]="bmrdataSource" class="mat-elevation-z8">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Site </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="meter">
+        <th mat-header-cell *matHeaderCellDef> Bay No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.meter}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="consumption">
+        <th mat-header-cell *matHeaderCellDef> Consumption </th>
+        <td mat-cell *matCellDef="let element"> {{element.consumption}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="cost">
+        <th mat-header-cell *matHeaderCellDef> Cost </th>
+        <td mat-cell *matCellDef="let element"> {{element.cost}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+</table>
+<mat-paginator #bmrdataSourcePaginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+    [showFirstLastButtons]="true" fxHide.lt-md></mat-paginator>
+}
+@case ("reporting") {
+<h3>Reporting</h3>
+<div class="row-flex-center-container ">
+    <strong>Under Construction</strong>
+</div>
+}
+}
