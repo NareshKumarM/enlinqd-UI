@@ -5,32 +5,48 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RouterModule } from '@angular/router';
-import { MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuard, MsalGuardConfiguration, MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MsalRedirectComponent, MsalService } from '@azure/msal-angular';
-import { BrowserCacheLocation, InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
+import { MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalBroadcastService, MsalGuard, MsalGuardConfiguration, MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MsalRedirectComponent, MsalService } from '@azure/msal-angular';
+import { BrowserCacheLocation, InteractionType, PublicClientApplication } from '@azure/msal-browser';
 import { AngularMaterialModule } from './shared/modules/material.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SelectAllDirective } from './shared/directives/select-all.directive';
+import { AuthInterceptor } from './shared/services/auth.interceptor';
 
-export function MSALInstanceFactory(): IPublicClientApplication {
+// export function MSALInstanceFactory(): IPublicClientApplication {
+//   return new PublicClientApplication({
+//     auth: {
+//       // clientId: "5b1f63e9-b2e9-41a8-a437-abc9f77ed157",
+//       // authority: "https://login.microsoftonline.com/e7171d83-ff27-4c9a-927b-d95ede538e95",
+//       clientId: "f2ecd02a-ecab-49e8-8546-c38456834afa",
+//       authority: "https://qmediax.b2clogin.com/qmediax.onmicrosoft.com/B2C_1_susi",
+//       redirectUri: "http://localhost:4200",
+//       postLogoutRedirectUri: "http://localhost:4200",
+//       navigateToLoginRequestUrl: true
+//     },
+//     cache: {
+//       cacheLocation: BrowserCacheLocation.LocalStorage,
+//     },
+//     system: {
+//       allowNativeBroker: false
+//     }
+//   })
+// }
+
+export function MSALInstanceFactory() {
   return new PublicClientApplication({
     auth: {
-      clientId: "5b1f63e9-b2e9-41a8-a437-abc9f77ed157",
-      authority: "https://login.microsoftonline.com/e7171d83-ff27-4c9a-927b-d95ede538e95",
+      clientId: "f2ecd02a-ecab-49e8-8546-c38456834afa",
+      authority: "https://qmediax.b2clogin.com/qmediax.onmicrosoft.com/B2C_1_susi",
       redirectUri: "http://localhost:4200",
-      postLogoutRedirectUri: "http://localhost:4200",
-      navigateToLoginRequestUrl: true
+      knownAuthorities: ['qmediax.b2clogin.com']
     },
     cache: {
-      cacheLocation: BrowserCacheLocation.LocalStorage,
-    },
-    system: {
-      allowNativeBroker: false
+      cacheLocation: BrowserCacheLocation.SessionStorage, // Use sessionStorage or localStorage
+      storeAuthStateInCookie: true
     }
-  })
+  });
 }
 
 /**
@@ -73,7 +89,8 @@ export function MSALInterceptorConfig(): MsalInterceptorConfiguration {
     AppRoutingModule,
     CommonModule,
     HttpClientModule,
-    MsalModule,
+    // MsalModule,
+    MsalModule.forRoot(MSALInstanceFactory(), MSALGuardConfigFactory(), MSALInterceptorConfig()),
     RouterModule,
     //   MsalModule.forRoot(
     //   new PublicClientApplication({
@@ -105,27 +122,21 @@ export function MSALInterceptorConfig(): MsalInterceptorConfiguration {
     // ),
   ],
   providers: [
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: MsalInterceptor,
+    //   multi: true
+    // },
+    // MsalGuard,
+    // MsalConfigService
+    MsalService,
+    MsalBroadcastService,
+    provideAnimationsAsync(),
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: MsalInterceptor,
+      useClass: AuthInterceptor,
       multi: true
-    },
-    {
-      provide: MSAL_INSTANCE,
-      useFactory: MSALInstanceFactory,
-    },
-    {
-      provide: MSAL_GUARD_CONFIG,
-      useFactory: MSALGuardConfigFactory
-    },
-    {
-      provide: MSAL_INTERCEPTOR_CONFIG,
-      useFactory: MSALInterceptorConfig
-    },
-    MsalService,
-    MsalGuard,
-    provideAnimationsAsync(),
-    // MsalConfigService
+    }
   ],
   bootstrap: [AppComponent, MsalRedirectComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

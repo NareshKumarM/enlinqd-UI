@@ -7,7 +7,7 @@ import { filter, Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',  standalone: false
+  styleUrl: './home.component.scss', standalone: false
 })
 export class HomeComponent implements OnInit, OnDestroy {
   title = 'enlinqd-UI';
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     // @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private msalBroadcastService: MsalBroadcastService,
-    private authService: MsalService,
+    private msalService: MsalService,
     private router: Router) { }
 
 
@@ -42,15 +42,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.isIframe = window !== window.parent && !window.opener;
 
-    // this.authService.instance?.handleRedirectPromise().then(
+    // this.msalService.instance?.handleRedirectPromise().then(
     //   res => {
     //     if (res?.account !== null) {
-    //       this.authService.instance.setActiveAccount(res.account);
+    //       this.msalService.instance.setActiveAccount(res.account);
     //     }
     //   }
     // );
 
-    this.authService.initialize().subscribe(result => {
+    this.msalService.initialize().subscribe(result => {
       console.log(result)
     })
 
@@ -70,22 +70,27 @@ export class HomeComponent implements OnInit, OnDestroy {
     this._destroying$.complete();
   }
 
-  login() {
-    const loginRequest: RedirectRequest = {
-      scopes: ["user.read", "profile"],
-      prompt: "select_account"
-    }
-    // this.authService.loginPopup({
+  login() { // this.msalService.loginPopup({
     //   scopes: ["user.read"],
     //   prompt: 'select_account',
     // }).subscribe((res: AuthenticationResult) => {
-    //   this.authService.instance.setActiveAccount(res.account)
+    //   this.msalService.instance.setActiveAccount(res.account)
     // });
     // if (this.msalGuardConfig.authRequest) {
-    //   this.authService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
+    //   this.msalService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
     // } else {
-    this.authService.loginRedirect(loginRequest);
+    //   this.msalService.loginRedirect(loginRequest);
     // }
+
+    // const loginRequest: RedirectRequest = {
+    //   scopes: ["user.read", "profile"],
+    //   prompt: "select_account"
+    // }
+
+    // this.msalService.loginRedirect(loginRequest);
+
+    this.msalService.loginRedirect();
+    
   }
 
   checkAndSetActiveAccount() {
@@ -94,28 +99,28 @@ export class HomeComponent implements OnInit, OnDestroy {
      * To use active account set here, subscribe to inProgress$ first in your component
      * Note: Basic usage demonstrated. Your app may require more complicated account selection logic
      */
-    let activeAccount = this.authService.instance.getActiveAccount();
+    let activeAccount = this.msalService.instance.getActiveAccount();
 
-    if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
-      let accounts = this.authService.instance.getAllAccounts();
-      this.authService.instance.setActiveAccount(accounts[0]);
+    if (!activeAccount && this.msalService.instance.getAllAccounts().length > 0) {
+      let accounts = this.msalService.instance.getAllAccounts();
+      this.msalService.instance.setActiveAccount(accounts[0]);
     }
   }
 
 
   logout() { // Add log out function here
-    this.authService.logout();
-    // this.authService.logoutRedirect({
+    this.msalService.logout();
+    // this.msalService.logoutRedirect({
     //   postLogoutRedirectUri: 'http://localhost:4200'
     // });
   }
 
   isLoggedIn(): boolean {
-    return this.authService.instance?.getActiveAccount() !== null;
+    return this.msalService.instance?.getActiveAccount() !== null;
   }
 
   setLoginDisplay() {
-    this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
+    this.loginDisplay = this.msalService.instance.getAllAccounts().length > 0;
   }
 
   public async NavigateToAdminDashboard(): Promise<void> {
